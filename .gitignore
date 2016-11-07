@@ -1,0 +1,11 @@
+/node_modules
+/test/js
+/test/browsertest/js
+/benchmark/js
+/benchmark/fixtures
+/examples/*/js
+/coverage
+.DS_Store
+*.log
+.idea
+yarn.lock

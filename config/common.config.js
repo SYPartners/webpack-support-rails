@@ -77,13 +77,13 @@ config.module = {
 };
 
 var custom_config;
-// try {
+try {
     custom_config = require(custom_common_config_path);
     _.mergeWith(config, custom_config, function(objValue, srcValue) { // customizer that will merge arrays with concat instead of overwriting same keys
         if (_.isArray(objValue)) {
             return objValue.concat(srcValue);
         }
     });
-// } catch (e) {}
+} catch (e) {}
 
 module.exports = config;

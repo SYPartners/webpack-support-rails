@@ -1,5 +1,5 @@
 var config = require('./common.config')
-var cleaner = require('./cleaner');
+var cleaner = require('./../lib/cleaner');
 var webpack = require('webpack');
 
 var uglifyOptions = {

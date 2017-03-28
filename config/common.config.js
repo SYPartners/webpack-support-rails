@@ -38,29 +38,36 @@ var config = {
 };
 
 config = _.merge(config, {
-    debug: true,
-    displayErrorDetails: true,
-    outputPathinfo: true
+    stats: {
+        errorDetails: true
+    }
 });
 
 config.output = {
+    pathinfo: true,
     path: build_path,
     filename: '[name]-[chunkhash].js',
     chunkFilename: '[id]-[chunkhash].js',
 };
 
 config.resolve = {
-    root: src_path,
-    extensions: ['', '.js', '.js6', '.jsx', '.json'],
+    modules: [
+        src_path,
+        "node_modules"
+    ],
+    extensions: ['.js', '.js6', '.jsx', '.json'],
     alias: {
         underscore: 'lodash',
     }
 };
 
 config.plugins = [
+    new webpack.LoaderOptionsPlugin({
+        debug: true
+    }),
     cleaner,
     new asset_map_writer(asset_map_path),
-    new webpack.optimize.CommonsChunkPlugin('common', 'common-[chunkhash].js'),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'common', filename: 'common-[chunkhash].js'}),
     new chunk_manifest({ filename: '../webpack-chunk-manifest.json', manfiestVariable: 'webpackBundleManifest' }),
     // new webpack.ProvidePlugin({
     //     $: "jquery",
@@ -71,7 +78,7 @@ config.plugins = [
 config.module = {
     loaders: [
         // { test: /\.vue$/, loader: 'vue' },
-        { test: /\.js([6x])?$/, exclude: /node_modules/, loader: "babel", query: {presets: ['es2015'] } },
+        { test: /\.js([6x])?$/, exclude: /node_modules/, loader: "babel-loader", query: {presets: ['es2015'] } },
         { include: /\.json$/, loaders: ["json-loader"] }
     ]
 };

@@ -2,6 +2,7 @@ var path = require('path');
 var _ = require('lodash');
 var fs = require('fs')
 var isDirSync = require('./../lib/directory_exists_sync');
+var getEntries = require('./../lib/get_entries');
 
 var webpack = require('webpack');
 var chunk_manifest = require('chunk-manifest-webpack-plugin');
@@ -19,18 +20,9 @@ var custom_common_config_path = path.join(rails_path, 'config', 'webpack', 'comm
 
 // loop through app/assets/javascripts/entry
 // clean me up
-var entries = {};
 var entry_path = path.join(rails_path, 'app', 'assets', 'javascripts', 'entry');
-if(isDirSync(entry_path)) {
-    var files = fs.readdirSync(entry_path);
-        files.forEach(item => {
-            if(item.includes('.js')) { // we only care about files that contain .js in their name
-                entry_name = item.replace( /\.js([6x])?$/, "");
-                entries[entry_name] = './entry/' + item;
-            }
-        });
-}
-// end
+var entries = getEntries(entry_path);
+
 
 var config = {
     context: src_path,

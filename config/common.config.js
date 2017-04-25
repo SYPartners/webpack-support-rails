@@ -1,8 +1,8 @@
 var path = require('path');
 var _ = require('lodash');
 var fs = require('fs')
-var isDirSync = require('./../lib/directory_exists_sync');
-var getEntries = require('./../lib/get_entries');
+var getEntryList = require('./../lib/get_entry_list');
+var makeEntryMap = require('./../lib/make_entry_map');
 
 var webpack = require('webpack');
 var chunk_manifest = require('chunk-manifest-webpack-plugin');
@@ -21,7 +21,7 @@ var custom_common_config_path = path.join(rails_path, 'config', 'webpack', 'comm
 // loop through app/assets/javascripts/entry
 // clean me up
 var entry_path = path.join(rails_path, 'app', 'assets', 'javascripts', 'entry');
-var entries = getEntries(entry_path);
+var entries = makeEntryMap(getEntryList(entry_path), entry_path);
 
 
 var config = {

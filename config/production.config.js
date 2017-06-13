@@ -20,6 +20,6 @@ var uglifyOptions = {
 };
 
 config.plugins.push(new webpack.optimize.UglifyJsPlugin(uglifyOptions),
-    new webpack.optimize.OccurenceOrderPlugin());
+    new webpack.optimize.OccurrenceOrderPlugin());
 
 module.exports = config;
